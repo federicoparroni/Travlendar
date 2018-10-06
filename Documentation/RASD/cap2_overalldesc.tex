@@ -1,0 +1,244 @@
+\chapter{Overall Description}
+
+\section{Product Perspective}
+
+\subsection{User Model} \label{subsect:usermodel}
+A user is represented within the application by his password and his e-mail. 
+Some important informations about him are held by the following parameters:
+\begin{itemize}
+\item \textit{travelPass}: indicates if the user has a pass for public transportation;
+\item \textit{hasBike}: indicates if the user has his own car;
+\item \textit{hasCar}: indicates if the user has his own bicycle;
+\item \textit{externalTravelServicesAccounts} (\ref{def:travelServiceAccount});
+\end{itemize}
+
+\subsection{Appointment Model} \label{subsect:appointmentmodel}
+An appointment is represented within the application by a set of parameters:
+\begin{itemize}
+\item \textit{duration}: the time extension of the appointment;
+\item \textit{date}: the day in which the appointment is held;
+\item \textit{startingTime} or \textit{timeInterval}: the first should be given if the starting hour is well-known (deterministic), otherwise a time interval in which the appointment will be held it's provided;
+%In particular: \begin{equation}timeInterval.start + duration \leq timeInterval.end \label{eqn:constrOnTimeInterval} \end{equation}
+\item \textit{location}: identifies the coordinates of the place where the appointment will be held;
+\item \textit{recurrent}: specifies if the appointment will be repeated over a fixed period of time;
+\item \textit{peopleTravelling}: represents a variation of people occourring when the user picks up or leaves off someone.
+\end{itemize}
+
+The life cycle of an appointment can be represented by the following statechart:
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=\textwidth, keepaspectratio]{"images/stateChartAppointment".png}
+\caption{Appointment statechart}
+\label{fig:stchartApp}
+\end{center}
+\end{figure}
+
+A newly-created appointment is \textbf{Unscheduled}. It could remain \textbf{Unscheduled} either when edited or there isn't a possible arrangement when a schedule is performed. Otherwise it becomes \textbf{Scheduled} if there's a feasible way to arrange it. When a scheduled appointment is edited all the appointments in that schedule return to be \textbf{Unscheduled}, because they can possibly cause a different schedule. When a scheduled appointment is fullfilled it becomes \textbf{Archived} and stored in the schedule history. If this last one is a recurrent appointment it must be reinserted in the list of unscheduled appointments so it will become \textbf{Unscheduled} again. The user can cancel an appointment in every moment. 
+
+\subsection{Schedule Model} \label{subsect:schmodel}
+A schedule is a set of Appointments of a  given day, ordered by the scheduler following the criteria described below.
+A schedule is characterized by the following variables:
+\begin{itemize}
+\item \textit{date};
+\item \textit{startingPosition}: is the starting location of the user (e.g. user's home);
+\item \textit{startingNumberOfPeople}: the number of people that must reach the first appointment;
+\item \textit{wakeUpTime}: it is the starting time from which the schedule should start arranging appointments.
+\end{itemize}
+
+\includegraphics[width=\textwidth, keepaspectratio]{"images/stateChartSchedule1".png}
+
+When a schedule is requested by the user it can be either validated or refused by the scheduler according to the definition of valid schedule (\ref{def:validSchedule}).
+In the first case the schedule is \textbf{saved} in the second one the schedule is \textbf{discarded} and a warning to the user is sent. In order to start a schedule the user must accept one of them from the saved ones, after that the schedule is \textbf{running}.If the user edits one of the appointments belonging to the running schedule, this one is not more valid and become \textbf{discarded}. When a schedile is fullfilled by the user this last is \textbf{archived} by the system.
+
+ 
+\subsubsection{The optimization criteria} \label{subsubsect:optcriteria} 
+Criteria for the schedule optimization that can be chosen by the user. These are the following:
+\begin{itemize}
+\item \textit{Minimize carbon footprint}: the scheduler will try to minimize the emission of polluting gases;
+\item \textit{Minimize money spent}: the scheduler will try to avoid expensive means and to exploit the cheap ones so that the amount of money used will be minimun;
+\item \textit{Minimize travelling time}: the scheduler will compute the quickest possible path reaching all the appointments locations.
+\end{itemize}
+
+\subsection{Constraints}
+Constraints are impositions on some parameters managed by the system during the process of scheduling the appointments. We can distinguish between constraints on schedule and contraints on the single appointment. These can be selected by the user when he inserts an appointment or when he requests a schedule. 
+
+\subsubsection{Constraints on schedule} \label{subsect:constraintSchedule}
+\begin{itemize}
+\item \textit{Maximum travelling distance with a specific travel mean}: the user can set a maximum amount of km to travel with a specific travel mean;
+\item\textit{ Travel means time slots}: user can specify a time interval in which a travel mean can be used;
+\item \textit{User can deactivate a particular travel mean};
+\item \textit{User can select which travel mean he uses under certain weather condition}.
+\end{itemize}
+
+The system checks the availability of shared travel means 15 minutes before the beginning of an appointment and notifies the user only if taking that mean will provide a better solution according to the optimization criteria selected.
+
+\subsubsection{Constraints on appointment} \label{subsubsect:constronappoint}
+\begin{itemize}
+\item \textit{User can deactivate a particular travel mean}.
+\end{itemize}
+
+\subsection{Class Diagram}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=450pt, keepaspectratio]{"images/classDiagram".png}
+\caption{System Class Diagram}
+\end{center}
+\end{figure}
+
+\section{Product Functions}
+
+The following requirements are derived in order to fullfill the specified goals.\\
+
+Requirements for \goalref{goal:G1}:
+\begin{enumerate}%[resume]
+\renewcommand\labelenumi{\textbf{R\theenumi}}
+\item The system S.B.A to handle a registration phase in which the user will provide an e-mail and a password; \label{req:R1}
+\item The system S.B.A. to verify the e-mail given by the user by sending a confirmation e-mail to his address; \label{req:R2}
+\item  The system should let the user to specify his parameters ;
+\end{enumerate} \label{req:R3}
+
+Requirements for \goalref{goal:G2}:
+\begin{enumerate}[resume]
+\renewcommand\labelenumi{\textbf{R\theenumi}}
+\item The system S.B.A to recognize a registered user given an e-mail and a password \label{req:R4}
+\item The system S.B.A. to retrieve information from the user about his registration informations, i.e. his e-mail and password; \label{req:R5}
+\item The system must update the local date if some changes on them have been done from other devices. \label{req:R30}
+\end{enumerate}
+
+Requirements for \goalref{goal:G3}:
+\begin{enumerate}[resume]
+\renewcommand\labelenumi{\textbf{R\theenumi}}
+\item The system should be able to retrieve an e-mail address from the user; \label{req:R6}
+\item The system should be able to send the password of a user to his e-mail given it. \label{req:R7}
+\end{enumerate}
+
+Requirements for \goalref{goal:G4}:
+\begin{enumerate}[resume]
+\renewcommand\labelenumi{\textbf{R\theenumi}}
+\item The system S.B.A. to retrieve information from the user about his appointments \label{req:R8}
+\item The system S.B.A. to store an appointment in his memory. \label{req:R9} 
+\end{enumerate}
+
+Requirements for \goalref{goal:G5}:
+\begin{enumerate}[resume]
+\renewcommand\labelenumi{\textbf{R\theenumi}}
+\item The system should let the user change the parameters and the constraints of an inserted appointment; \label{req:R10}
+\item The system S.B.A to rewrite the appointment in his memory with his new parameters. \label{req:R11}
+\end{enumerate}
+
+Requirements for \goalref{goal:G6}:
+\begin{enumerate}[resume]
+\renewcommand\labelenumi{\textbf{R\theenumi}}
+\item Allow the user to set the constraints of the schedule (\ref{subsect:constraintSchedule}); \label{req:R12}
+\item Allow the user to set the optimization criteria (\ref{subsubsect:optcriteria}) for the schedule; \label{req:R13}
+\item Allow the user to set the variables \footnote{The starting postion of the user can also be retrieved by mean of GPS, without specifing in manually} for the schedule (\ref{subsect:schmodel});   \label{req:R14}
+\item The system S.B.A. to gather information from external APIs about: 
+	\begin{itemize}
+		\item travel options (\ref{def:travelOption}) with related travel option data (\ref{def:travelOptionData}); 
+		\item weather forecast;
+		\item strike days;
+		\item delays.
+	\end{itemize} \label{req:R15}
+\item The system S.B.A. to select the best travel option according to the optimization criteria taking into account:
+	\begin{itemize}
+		\item user constraint;
+		\item user parameters;
+		\item travel option data; 
+		\item weather forecast;
+		\item information about strike day;
+		\item information about delays.
+\end{itemize} \label{req:R16}
+\item The system S.B.A to store valid schedules requested by the user. \label{req:R17} 
+\end{enumerate}
+
+Requirements for \goalref{goal:G7}:
+\begin{enumerate}[resume]
+\renewcommand\labelenumi{\textbf{R\theenumi}}
+\item The system should let the user accept a schedule from the saved ones \label{req:R18}
+\end{enumerate}
+
+Requirements for \goalref{goal:G8}:
+\begin{enumerate}[resume]
+\renewcommand\labelenumi{\textbf{R\theenumi}}
+\item The system S.B.A to book a travel mean through external API offered by third part application in which the user is signed. \label{req:R19}
+\end{enumerate}
+
+Requirements for \goalref{goal:G9}:
+\begin{enumerate}[resume]
+\renewcommand\labelenumi{\textbf{R\theenumi}}
+\item The system S.B.A to retrive the position of the user from his GPS; \label{req:R20}
+\item The system S.B.A. to retrive from an external API the directions to give to the user for reach the next appointment; \label{req:R21}
+\item The system S.B.A. to retrive from an external API the Graphical representation of the path that will be travelled by the user. \label{req:R22}
+\end{enumerate}
+
+%Requirements for \goalref{goal:G9}:
+%\begin{enumerate}[resume]
+%\renewcommand\labelenumi{\textbf{R\theenumi}}
+%\item The system S.B.A to retrive the graphical representation of a path from an external API;
+%\item The stystem S.B.A to retrive the travel option from an external API \textbf{(questa che gia si è detta ma serve anche per questo goal come facciamo?)}
+%\item The S.B.A to retrieve the length of a path from an external API  
+%\end{enumerate}
+
+Requirements for \goalref{goal:G10}:
+\begin{enumerate}[resume]
+\renewcommand\labelenumi{\textbf{R\theenumi}}
+\item The system should be able to send notifications to the user; \label{req:R23}
+\item The system should be able to retrieve information about the availablity of shared travel means from external APIs without the user request \label{req:R24}.
+\end{enumerate}
+
+
+\subsection{User characteristics}
+Users can use the system when they want something that allows them to schedule their meetings according to their necessities and constraints. Necessary conditions for a users in order to use the system are: 
+
+\begin{itemize}
+\item He must have a device connected to the internet in which the application runs
+\end{itemize}
+
+This is the only requirement that is needed. Anyway additional characteristics of the user lead to the exploitment of all the system features. In fact some of them are guaranteed only after having submitted some information to the application.
+In this sense, welcomed user's characteristics are:
+
+\begin{itemize}
+\item The ownership of some travel means
+\item The ownership of travel passes
+\item The registration to sharing services
+\end{itemize}
+
+Beside these, an obvious tacit assumption is that the user has a valid age to move where he wants with autonomy.
+
+
+\subsection{ Assumptions, dependencies and constraints}
+
+\begin{itemize}
+
+\item There exist external APIs that allow to:
+\begin{itemize}
+\item retrieve all travel options and travel option data;
+\item signed user to book and pay for all travel services;
+\item retrieve information about weather forecast;
+\item retrieve informations about strike days;
+\item retrieve informations about delays;
+\item retrieve informations about the position of shared travel means.
+\end{itemize}
+
+\item Shared Travel Means can be reserved at most 15 minutes in advantage in order to be used by the user;
+
+\item The device on which the application runs is connected to the internet;
+
+\item The appointments to schedule are located are all over a specific region;
+
+\item A public travel pass is valid for all public travel means;
+
+\item The user has a GPS active in every moment;
+
+\item Every user has at least one personal e-mail;
+
+\item Shared travel means are only cars and bikes;
+
+%\item Shared travel means can be booked for the next 15 minutes (\textbf{dire due parole su questa assunzione che è abbanstanza forte});
+
+\end{itemize}
+
+
+%list of requirements given the goals
+
+

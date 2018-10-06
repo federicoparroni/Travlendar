@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="290dp"
+        android:layout_height="384dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/onClickListViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="21dp"
+            android:layout_toStartOf="@+id/onClickListViewDate"
+            android:text="Name"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/onClickListViewDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/onClickListViewName"
+            android:layout_alignBottom="@+id/onClickListViewName"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="23dp"
+            android:text="date appo"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/onClickListViewStartingTimeOrTimeSlotField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/onClickListViewName"
+            android:layout_below="@+id/onClickListViewName"
+            android:layout_marginTop="18dp"
+            android:text="Starting Time"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/onClickListViewStartingTimeOrTimeSlot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/onClickListViewStartingTimeOrTimeSlotField"
+            android:layout_below="@+id/onClickListViewStartingTimeOrTimeSlotField"
+            android:layout_toStartOf="@+id/textView8"
+            android:text="TextView"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/onClickListViewStartingTimeOrTimeSlotField"
+            android:layout_alignBottom="@+id/onClickListViewStartingTimeOrTimeSlotField"
+            android:layout_alignEnd="@+id/onClickListViewDate"
+            android:layout_toEndOf="@+id/onClickListViewName"
+            android:text="Duration"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/onClickListViewDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView8"
+            android:layout_alignStart="@+id/textView8"
+            android:layout_below="@+id/textView8"
+            android:text="TextView"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/onClickListViewStartingTimeOrTimeSlot"
+            android:layout_below="@+id/onClickListViewStartingTimeOrTimeSlot"
+            android:layout_marginTop="17dp"
+            android:layout_toStartOf="@+id/onClickListViewDuration"
+            android:text="Location"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/onClickListViewLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/onClickListViewDuration"
+            android:layout_alignStart="@+id/textView10"
+            android:layout_below="@+id/textView10"
+            android:text="TextView"
+            android:textColor="@android:color/black" />
+
+        <fragment
+            android:id="@+id/appointment_map_on_click"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="333dp"
+            android:layout_alignEnd="@+id/onClickListViewLocation"
+            android:layout_alignStart="@+id/onClickListViewLocation"
+            android:layout_below="@+id/onClickListViewLocation"
+            tools:context="com.greenfeetsurvival.greenfeetaviator.MapsActivity"></fragment>
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

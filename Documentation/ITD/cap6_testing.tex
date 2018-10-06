@@ -1,0 +1,136 @@
+\chapter{Testing}
+
+\section{Server tests}
+
+\subsection{Goal 1}
+\textbf{The system should offer the possibility to create a new account}
+\testTable{Registration with empty email}{Incorrect email error response}{Incorrect email error response}
+\testImage{"testServer/emptyEmail".png}
+
+\testTable{Registration with empty password}{Incorrect password error response}{Incorrect email error response}
+\testImage{"testServer/emptyPassword".png}
+
+\subsection{Goal 2}
+\textbf{The system should be able to handle a login phase}
+\testTable{Login with wrong client credentials}{Wrong credentials error response}{Wrong credentials error response}
+\testImage{"testServer/wrongCredentials".png}
+
+\testTable{Login with wrong user credentials}{Wrong username or password error response}{Wrong username or password response}
+\testImage{"testServer/wrongUserPassword".png}
+
+\subsection{Other tests}
+\testTable{Access auth-protected api with correct access token}{Response succesfully returns}{Response succesfully returns}
+\testImage{"testServer/correctToken".png}
+
+\testTable{Access auth-protected api with wrong access token}{Wrong access token error response}{Wrong access token error response}
+\testImage{"testServer/wrongToken".png}
+
+
+\section{Client test}
+
+\subsection{Goal 1}
+\textbf{The system should offer the possibility to create a new account}
+
+\testTable{Registration with invalid email}{Incorrect email error message}{Incorrect email error message}
+\testImage{"testClient/invalidRegistration".png}
+
+\testTable{Registration with non matching passwords confirmation}{Non matching passwords error message}{Non matching passwords error message}
+\testImage{"testClient/nonmatchingPassword".png}
+
+\TestTable{User is at the login page}{The user wants to register inside Travlendar, so he taps on the REGISTER button}{The user inputs a valid email and a password for the new account, a view appear in order to confirm the inserted password}{As expected: registration done message}
+\testImage{"testClient/correctRegistration".png}
+
+\subsection{Goal 2}
+\textbf{The system should be able to handle a login phase}
+\testTable{Login with wrong user credentials}{Wrong username or password error message}{Wrong username or password error message}
+\testImage{"testClient/invalidLogin".png}
+
+\subsection{Goal 4}
+\textbf{The system should allow the user to insert an appointment according to his necessities and his preferences}
+\TestTable{The appointment list is blank}{The user likes to insert a new appointment, say a Software Engineering II lesson dated 15-01-2018, located in Via Camillo Golgi 42 and which lasts 2 hours. So, from the appointments section, the users adds a new appointment with these peculiarities.}
+{The appointment should be created and thus appear in the appointments list.}{As expected}
+\testImage{testClient/appointment_creation.png}
+
+\TestTable{The appointment list is not empty}{The user wants to see the characteristics of a previously created appointment, say the Software Engineering II lesson created before, so the user taps the appointment on the appointments list}{A view should appear, showing the peculiarities of the selected appointment}{As expected}
+\testImage{testClient/appointment_details.png}
+
+\subsection{Goal 5}
+\textbf{The system should provide a way to modify an inserted appointment}\\
+
+\TestTable{The appointment list is not empty}{The user wants to modify the Software Engineering II lesson's details, setting the starting time at 10.30, so he taps the appointments and he clicks on the edit button and he modifies the starting time}{The appointment should be modified according to the new value of starting time imposed}{As expected}
+\testImage{testClient/appointment_editing.png}
+
+\TestTable{The appointment list is not empty}{The user wants to delete the Software Engineering II appointment, so he holds the click to this appointment on the appointment view and decide to delete it}{The appointment should disappear from the view}{As expected}
+\testImage{testClient/appointment_deletion.png}
+
+\subsection{Goal 6}
+\textbf{The system should provide a way to create a valid schedule of the user appointments when requested and display the scheduling result}\\
+
+\TestTable{
+User has no computed schedule in his schedule list.}
+{Creation of a new schedule.}
+{{\begin{enumerate}
+\item a click on the add schedule button is performed and the user is redirected to the schedule creation view.
+\item the user selects the date in which he/she wants compute his/her schedule.
+\item the empty fields are filled by the user.
+\item the button for computing the schedule is clicked and the progress bar is shown.
+\item the user is redirected to the schedule list and there, is added the new computed schedule.
+\item with one click on the created schedule the schedule results are shown.
+\end{enumerate}}}
+{The outcome is equal to the expected behaviour.}
+
+\TestImage{test_goal_6/2}{execution of point 2}
+\TestImage{test_goal_6/3}{execution of point 5}
+\TestImage{test_goal_6/4}{execution of point 6}
+
+\TestTable{user has no computed schedule in his schedule list.}
+{Creation of a new schedule with a constraint on one of his appointment}
+{Creation of a new schedule that doesn't use the car on its appointments}
+{The computed schedule doesn't involve the car}
+
+\TestImage{test_scheduler/2}{computed schedule}
+
+\TestTable{User has no computed schedule in his schedule list.}
+{Creation of a new schedule.}
+{{\begin{enumerate}
+\item a click on the add schedule button is performed and the user is redirected to the schedule creation view.
+\item the user selects the date in which he/she wants compute his/her schedule.
+\item the empty fields are filled by the user.
+\item a time-slot constraint for car is set
+\item the button for computing the schedule is clicked and the progress bar is shown.
+\item the user is redirected to the schedule list and there, is added the new computed schedule.
+\item with one click on the created schedule the schedule results are shown.
+\end{enumerate}}}
+{The outcome is equal to the expected behaviour: car is not taken for the specified time slot}
+
+\testImage{"test_goal_6/timeSlotConstraint".png}
+\testImage{"test_goal_6/timeSlotConstraintResult".png}
+
+\TestTable{The user has three appointments in the same time slot ranging from 3 pm to 6 pm}
+{The user wants to schedule his appointments, starting from 3 pm in Via Privata Giovanni Ventura, Lambrate, optimizing the cost of the schedule}
+{It's expected that the scheduler will prefer travelling by public travel means and by foot, providing directions to reach the appointments and setting a real starting time to those}
+{The actual behaviour is equal to the expected one. In particular notice   that the scheduler will manage by itself the order in which the appointments should be travelled, taking into account the optimization criteria}
+
+\testImage{test_goal_6/schedule_time_slot.png}
+
+\subsection{Goal 7}
+\textbf{The system should let the user create valid multiple schedules and decide which one is chosen for the current day}\\
+
+\TestTable{Schedule list is not empty}{The user wants to run a schedule, so he taps on it and runs it}{The schedule is ran}{As expected}
+
+\testImage{testClient/schedule_running.png}
+
+\subsection{Goal 8}
+\textbf{The system should be able to book the travel means involved in the current schedule under user approval}
+
+\TestTable{A previusly computed schedule involves some public travel means}{The user runs that schedule}{The application asks to the user if he wants to buy the tickets for that schedule}{As expected}
+
+\testImage{testClient/tickets.png}
+
+\subsection{Goal 9}
+\textbf{The system should be able to display in real time user position and the directions to be followed in order to arrive to the next appointment on a dinamically updated map}\\
+
+\TestTable{Schedule list is not empty}{The user wants to see the directions to follow for a schedule, so he runs it}{The schedule directions are shown in the main page}{As expected}
+
+\testImage{testClient/directions.png}
+

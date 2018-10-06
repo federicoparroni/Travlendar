@@ -1,0 +1,238 @@
+\chapter{Client application code structure}
+
+In this chapter is shown the main structure of the application code.
+For the code structure, how said in the DD document, has been decided to use the MVC pattern. These means that there are mainly 3 category of class:
+
+\begin{itemize}
+\item \textbf{Model Class}, used for modelling the logical property of the objects represented in the class 
+
+\item \textbf{View Class}, this class is used for modelling the design of a view of the applications
+
+\item \textbf{Controller Class}, these classes manage to handle the interaction beetwen the Model objects and the Views.
+\end{itemize}
+
+This is the project main structure:
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=250pt, keepaspectratio]{"image/Code_Structure/Global_Structure".png}
+\caption{Global Structure of the code}
+\end{center}
+\end{figure}
+
+The application is divided in three main projects:
+
+\begin{itemize}
+\item app project, containing the biggest part of the code
+
+\item darkskyandroidlib project, containing some classes used for managing the interaction between the application and the wheater forecast api
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=250pt, keepaspectratio]{"image/Code_Structure/DarkSky1".png}
+\caption{Wheather forecast api folder}
+\end{center}
+\end{figure}
+
+\item placesAPI project, containing the classes used for handle the interaction with the google map api
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=250pt, keepaspectratio]{"image/Code_Structure/PlacesAPI1".png}
+\caption{Places api folder}
+\end{center}
+\end{figure}
+\end{itemize}
+
+plus the Gradle Scripts an advanced build toolkit, to automate and manage the build process, while allowing you to define flexible custom build configurations. Each build configuration can define its own set of code and resources, while reusing the parts common to all versions of your app. The Android plugin for Gradle works with the build toolkit to provide processes and configurable settings that are specific to building and testing Android applications. One of the most important feature of the gradle is that it can generate the application apk.\\
+
+In the following sections we explain in a more exhaustive way the \textbf{app project structure} going more deeply in it.
+
+\section{Manifests folder}
+Every application must have an AndroidManifest.xml file (with precisely that name) in its root directory. The manifest file provides essential information about your app to the Android system, which the system must have before it can run any of the app's code.
+
+Among other things, the manifest file does the following:
+
+\begin{itemize}
+\item It names the Java package for the application. The package name serves as a unique identifier for the application.
+
+\item It describes the components of the application, which include the activities, services, broadcast receivers, and content providers that compose the application. It also names the classes that implement each of the components and publishes their capabilities, such as the Intent messages that they can handle. These declarations inform the Android system of the components and the conditions in which they can be launched.
+
+\item It determines the processes that host the application components.
+
+\item It declares the permissions that the application must have in order to access protected parts of the API and interact with other applications. It also declares the permissions that others are required to have in order to interact with the application's components.
+
+\item It lists the Instrumentation classes that provide profiling and other information as the application runs. These declarations are present in the manifest only while the application is being developed and are removed before the application is published.
+
+\item It declares the minimum level of the Android API that the application requires.
+
+\item It lists the libraries that the application must be linked against.
+\end{itemize}
+
+\section{Res folder}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=250pt, keepaspectratio]{"image/Code_Structure/App4".png}
+\caption{Res folder structure}
+\end{center}
+\end{figure}
+
+This folder contain all the graphic elements such as  the views of the application saved under xml format, or the images used for create the views, for example the button icon and stuff like that.
+
+More precisely:
+
+\begin{itemize}
+
+\item \textbf{drawable} and \textbf{mipmap} folders, they contain all the images used for create the views.
+
+\item \textbf{layout} folder,it contains all the xml files representing the real view of the application such as the main page or the appointment page.
+
+\item \textbf{Menu }folder,there we can find other xml used for modelling the navigation bar (the bar located on the top of each view) of each single view.
+
+\item \textbf{values} folder, it contains some parameters for the view such as colors,dimensions,strings id and styles.  
+
+\end{itemize}
+
+\section{Java folder}
+
+There are two folder one for the Model and the other for the Controller.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=250pt, keepaspectratio]{"image/Code_Structure/App1".png}
+\caption{Model folder}
+\end{center}
+\end{figure}
+
+In the model folder there all the classes used for the logic modeling, there is another folder used for group up all the travel mean since they have similar classes.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=250pt, keepaspectratio]{"image/Code_Structure/App2".png}
+\caption{Controller folder}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=250pt, keepaspectratio]{"image/Code_Structure/App3".png}
+\caption{Other folders inside the Controller folder}
+\end{center}
+\end{figure}
+
+The controller folder is divided in two main parts:
+\begin{itemize}
+\item Controller class
+\item View Controller Class, all the classes in the homonym package.
+\end{itemize}
+
+there is this division since android studio when a new view is created, generates automatically the controller of this view as a new class. We have added more controller in order to divide the tasks, that each controller have to perform, in a more logic way.
+
+Must be mentioned the JsonSerializer folder, containing some classes used for serialize some model classes in order to save their object in the devices memory.
+
+The folder CustomPreferences contains some classes used to specify a user preference such as the starting location of one of his schedule.
+
+%\textbf{NOTA: QUI MANCHEREBBE DA SPIEGARE PERCHè C'è IL FOLDER FRAGMENT SOLTANTO CHE AI FINI DELLA SPIEGAZIONE NON MI SEMBRA IMPORTANTE IN QUANTO è STATO FATTO COSI SOLTANTO PER POTER AGGIUNGERE QUEL MENU A SCORRIMENTO PERO ECCO SI PUO FARE SOLO CHE ANDREBBE A QUEL PUNTO SPIEGATO COSA è UN ACTIVITY COME SI DIFFERENZIA DA UN FRAGMENT}
+
+In the next part of the section the most important classes will be explained.
+
+\classDescription{IdentityManager}
+This class manages all the necessary step allowing a user to be authenticated in the application. It is made up of 5 main methods:
+
+\begin{enumerate}
+\item TokenRequest: sends an asincronous request to the token api and return the obtained token through the specified callback
+\item Login: basically call TokenRequest with the provided email and password and cache those credentials with the token in case of success
+\item Register: call asincronously the register api passing the specified email and password
+\item GetUserProfile: call asincronously the user profile api passing the specified email and password
+\item Logout: de-cache the user credentials and token
+\end{enumerate}
+
+
+\classDescription{LoginActivity}
+The activity that handle the interaction between the user and the Login view. The activity calls IdentityManager methods to perform login and registration processes.
+
+\classDescription{Scheduler}
+This class is used to compute asincronously a new schedule. Inputs are an appointments list, a starting time, a starting location, some constraints and an optimization criteria. The only exposed method are IsConsistent and ComputeSchedule. The first one check if all the input parameters have been set correctly. The second one actually does the big work. It perform the following actions:
+\begin{enumerate}
+\item retrieving weather conditions information
+\item computing predecessors and distances matrixes (see \DDref{3.2}) of all the appointments
+\item recursively building arrangements (all the possible ways of ordering the  appointments consistently with respect to the starting times)
+\item trying to create a schedule from each arrangement. This consists of some substeps:
+\begin{enumerate}
+\item create temporary appointment with a wake-up dummy appointment. These appointments have additional information supporting next computations
+\item loop two by two the temporary appointments until the end and assign the best travel mean to the second. The best travel mean is chosen from the available and usable list of travel means. This brings to also assign the starting time and the cost (time, cost, carbon), calculated for that travel mean.
+\item check if there are a time conflict (starting time of the current appointment and ending time of the previous are overlapping) or a mean conflict (taking that mean causes to exceed the maximum distance imposed by some constraints).
+\item if confilicts are found, add a dummy constraint on a temporary appointment to avoid taking that mean. In case of time conflict, this dummy constraints allows to take a faster travel mean (penalizing at least the cost); in case of mean conflict, it allows to take a different mean (penalizing at least the time).
+\item repeat from point (b) until there are no more time/mean conflicts or no more dummy constraints can be added to any appointment
+\end{enumerate}
+
+\item ordering all the created schedules
+\item calling the mapping service api to get route information on the "best" schedule (with the least cost) and verify the real feasibility of that schedule (done by calling \hyperref[method:getBestScheduleAsync]{ \textit{getBestScheduleAsync}}, see below for more details)
+\item returning the schedule if feasible or null otherwise
+\end{enumerate}
+
+\label{method:getBestScheduleAsync} \methodDescription{getBestScheduleAsync} it's the point were the API calls are performed to get the real data for a schedule, and to decide if the schedules (ordered by the most convenient one) are actually feasible, infact all the computation was based on estimates so far.
+The method takes every schedule that was computed, starting from the most convenient one, and performs the API calls (\methodDescription{getTravelOptionData} in particular) for every couple of scheduled appointments of the schedule, passing theire locations and starting times as parameters. If the results don't fit on the timings that were previously calculated, the schedule it's discarded and we try with the next one, until we conclude that there's a feasible schedule or not.
+In case a schedule it's accepted by this method, the various calls that were performed have set all the useful data for further computation on the \textbf{TravelOptionData} object, linking couples of scheduled appointments of the schedule.
+When the method terminates, the listener it's called, passing the computed schedule, if any, or null. Infact, since also the Scheduler deals with asynchronous calls (perfomed in \methodDescription{getBestScheduleAsync}) it has to provide an interface through which getting the results back.
+When the caller will receive the results, it will add it to the list of schedules.
+
+\classDescription{ScheduleManager}
+It lists all the schedules that have been computed over time, other than an handle to the current schedule that it's under execution right now. Based on this variable, the \textbf{HomeFragment} can decide it's state. The class offers also the method \methodDescription{getDirectionsForRunningSchedule} which retrieves, by means of the \textbf{TravelOptionData} objects contained in the schedule, a textual representation for the directions to give to the user.
+This class is made up as a Singleton, since just an instance of this object can be available.
+
+\classDescription{AppointmentManager}
+It lists all the appointments that have been created over time. It also offers a method which, relying on the \methodDescription{getStopDistance} method of \textbf{MappingServiceAPIWrapper}, sets the minimun distances to each kind of transit stop, from the selected appointment.
+This class is made up as a Singleton, since just an instance of this object can be available.
+
+\classDescription{AppointmentCreationActivity}
+this class is responsible for the appointments creation and editing, before one of the two actions mentioned before is performed it checks if all the mandatory fields has been filled, if that has not been done it shows a warning message. This class handles the interactions with the minor classes AddConstrantOnAppointmentActivity, SettingStartingTimeActivity, SettingTimeSlotActivity, classes used for set some parameters during the creation of an appointment. These interaction is made mainly with the callback method onActivityResult called from one of the three classes when the data expected has been inserted by the user.
+
+\classDescription{ScheduleCreationActivity}
+it manages the creation of the schedules grouping up all the data inserted by the user. If some mandatory fields are left empty it shows a warning message.
+
+\classDescription{HomeFragment}
+It's the view that first appears to the user when he/she opens the application. It has, as background, an object of type \textbf{GoogleMap}, showing all the appointments of the actual day, spreaded across the region that it's considered. This is the view as it shows up with it's starting state, that is, without any schedule on running. The state of it changes when some schedule is ran: the map is resized and at the bottom appear the directions for the schedule that it's actually running. When a schedule it's stopped (by means of the Cross button on the view), the state of the view returns as initial.
+
+\classDescription{UserProfileFragment}
+It's the view that lets the user change it's personal parameters, saved and managed by the built-in \textbf{SharedPreferences} environment in Android.
+
+\classDescription{AppointmentListFragment}
+Interprets in a graphic way, by means of an \textbf{ArrayAdapter}(AppointmentListViewAdapter class), the list of the created appointments contained in the \textbf{AppointmentManager} as a \textbf{ListView}. Using the filter features granted by the ArrayAdapter class, it can show the appointments according to a date chosen by the user. this class handles even the event generated by the click and the long click of the user on one of the appointment, in the first case showing the  main infos of the appointment and its position on a minimap, in the second giving to the user the possibility to delete the selected appointment.  
+
+\classDescription{ScheduleListFragment}
+Interprets in a graphic way, by means of an \textbf{ArrayAdapter}(ScheduleListViewAdapter class), the list of computed schedules contained in the \textbf{ScheduleManager} as a \textbf{ListView}. Using the filter features granted by the ArrayAdapter class, it separates the schedules in past schedules and current schedules (that are computed for the current day or in the future).this class handles even the event generated by the click and the long click of the user on one of the schedule, in the first case showing the  main infos of the schedule clicked and the route that the user must follow to reach all the appointment composing the schedule on a minimap, and a list view showing the travel mean to take to reach the next appointment. In the second giving to the user the possibility to delete the selected schedule.  
+ 
+\classDescription{NetworkManager}
+Class with one method used for check if the user is connected to internet.
+
+\classDescription{MapUtils}
+Encapsulates a \textbf{GoogleMap} object, allowing to draw a schedule (meaning all the appointments as markers and the polylines linking the appointments as lines of different colors) or a list of appointments (meaning as a set of markers) on map. Note that this it's implemented as a static class instead of an extension of the \textbf{GoogleMap} class because \textbf{GoogleMap} it's declared as static.
+
+\subsection{API wrappers} \label{sect:APIWrappers}
+As underlined in \DDref{2.2}, an indipendent set of components of our application is represented by the API wrappers. That is, they represents the way in which the system gather information from the external world. These informations, together with the internal data provided by the user, are the fundamental ingredients for the schedule computation.
+The use of the Adapter pattern (as introduced in \DDref{2.6}) is adopted for any class belonging to this subset of components, since we had these needs:
+
+\begin{enumerate}
+\item Retrieve data in a format that was requested by the other classes;
+\item Separate the other classes from the specific external API service that was used;
+\end{enumerate}
+
+The Adapter pattern fits perfectly these requests, leaving these part of the application totally open to modifications: if we will have the need to use another external source of data, will be enough to change the Adapter class, leaving the methods firm unchanged.
+Moreover, all these classes are Singletons: just one instance of a wrapper its needed.
+Last, since all the classes perform asynchronous calls, the results from these wrappers can be obtained only by extending the interfaces that they provide, and passing those objects to the methods that perform the calls (say, \methodDescription{getWeather}, \methodDescription{getTravelOptionData}, etc..), as suggested by asynchronous programming patters.
+
+\classDescription{WeatherForecastAPIWrapper}
+This subcomponent relays on another wrapper which was already built for the DarkSky libraries, so, basically, we exploited the functionalities of this wrapper adapting the data for our purposes. In particular, by calling \methodDescription{getWeather}, we can retrieve the weather conditions for the next 48 in a certain location, starting on a certain date. This can lead to the possibility of caching the weather data, saving some API calls when not needed
+
+\classDescription{MappingServiceAPIWrapper}
+This subcomponent relays on another 2 wrappers which were already built for the Google Places API and Google Directions API. Two features are offered:
+
+\begin{enumerate}
+\item \methodDescription{getStopDistance}: useful to retrieve all the transit stops that can be found in a certain range, with the relative distance from a specified location.
+\item \methodDescription{getTravelOptionData}: useful to retrieve all the useful data about the travelling from a spot to another, specifying a deterministic starting time. These data are filled in a \textbf{TravelOptionData} object, which is a field available in every scheduled appointment.
+\end{enumerate}
+
+\classDescription{TravelMeanAPIWrapper}
+This class it's not implemented because it deals with strike days and tickets, which are details that are not considered in our prototype, as explained in \ref{chap:reqAndFuct}
+
+

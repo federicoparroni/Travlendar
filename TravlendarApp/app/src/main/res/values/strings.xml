@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">Travlendar+</string>
+
+    <!-- user settings -->
+    <string name="has_pass">Pass ownage</string>
+    <string name="has_pass_summary">Do you own a Public Transit pass?</string>
+    <string name="has_bike">Bike ownage</string>
+    <string name="has_bike_summary">Do you own a car?</string>
+    <string name="has_car">Car ownage</string>
+    <string name="has_car_summary">Do you own a bike?</string>
+    <string name="wake_up_time">Wake up time</string>
+    <string name="wake_up_time_summary">At what time can the schedules start?</string>
+    <string name="user_settings">Settings</string>
+    <string name="starting_location">Starting Location</string>
+    <string name="starting_location_summary">From where should your schedules start?</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!-- login activity -->
+    <string name="remember_me">Remember me</string>
+    <string name="recover_password">Forgot password?</string>
+    <string name="email_regex">^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$</string>
+
+    <!-- main activity and navigation menu -->
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+    <string-array name="main_menu_items_array">
+        <item>Home</item>
+        <item>Appointments</item>
+        <item>Schedules</item>
+        <item>User Settings</item>
+    </string-array>
+    <string name="nav_menu_home">Home</string>
+    <string name="nav_menu_appointments">Appointments</string>
+    <string name="nav_menu_schedules">Schedules</string>
+    <string name="nav_menu_about_us">About us</string>
+    <string name="nav_menu_travlendar">Travlendar App</string>
+    <string name="nav_menu_logout">Logout</string>
+
+
+    <string name="main_page_activity">Settings</string>
+    <string name="title_activity_schedule_list">ScheduleListActivity</string>
+
+    <string name="title_nextSchedules">Current schedules</string>
+    <string name="title_pastSchedules">Past schedules</string>
+
+    <string name="profile_image_button_tooltip">Show your profile</string>
+
+    <!-- home -->
+    <string name="title_home">Home</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Home fragment</string>
+    <string name="title_activity_schedule_creation">ScheduleCreationActivity</string>
+    <string name="stop_schedule">"Stop schedule"</string>
+    <string name="color_info">"Color info"</string>
+
+    <string name="action_settings">Settings</string>
+
+</resources>

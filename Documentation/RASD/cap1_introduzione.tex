@@ -1,0 +1,213 @@
+%%CAPITOLO 1: Introduzione=======================================
+\chapter{Introduction}
+
+\section{Purpose}
+
+Our team will develop \textit{Travlendar+}, a calendar-based application that aims to provide a schedule of user appointments, giving a plan to organize his daily life.
+The main goals the app must fulfill are:
+
+\begin{enumerate}
+\renewcommand\labelenumi{\textbf{G\theenumi}}
+%\item Schedule user appointments according to his necessities;% and his preferences, identifying the best mobility options; 
+%\label{goal:G1}
+%\item Make sure that the user can be in time for his appointments; \label{goal:G3}
+%\item Optimize the schedule with respect to some criteria and constraints chosen by the user; \label{goal:G4}
+%\item Provide a way to move between appointments location using several kinds of travel means; \label{goal:G5}
+%\item Localize public travel means or sharing services, and buy tickets or book a ride, respectively; \label{goal:G6}
+%\item Arrange the trips of the user, allowing him to locate travel services and buy public travel means tickets or book a sharing service; \label{goal:G7}
+%\item Create a system with a \textbf{graphic} user interface, in order to simplify input/output interactions with the user. \label{goal:G8}
+%\end{enumerate}
+
+\item The system should offer the possibility to create a new account;
+\label{goal:G1}
+
+\item The system should be able to handle a login phase;
+\label{goal:G2}
+
+\item The system should give to the signed user the possibility to recover his password;
+\label{goal:G3}
+
+\item The system should allow the user to insert an appointment according to his necessities and his preferences (\ref{def:preference});
+\label{goal:G4}
+
+\item The system S.P.W. to modify an inserted appointment;
+\label{goal:G5} 
+
+\item The system S.P.W. to create a valid schedule (\ref{def:validSchedule}) of the user appointments when requested and display the scheduling result (\ref{def:schedulingResult});
+\label{goal:G6}
+
+\item The system should let the user create valid multiple schedules and decide which one is chosen for the current day;
+\label{goal:G7}
+
+\item The system S.B.A to book the travel means involved in the current schedule under user approval;
+\label{goal:G8} 
+
+\item The system S.B.A. to display in real time user position and the directions to be followed in order to arrive to the next appointment on a dinamically updated map; \label{goal:G9}
+
+\item The system S.B.A. to notify the user when a shared travel mean is available and it would optmize the current schedule; \label{goal:G10}
+
+\end{enumerate}
+
+
+\section{Scope}
+
+Here we provide a brief description of the aspects of the reality of interest which the application is going to interact with.
+
+User can receive an appointment on a certain date, time and location (over a region), that can be reached using different available travel means. The appointment can be held either at a specific time or in a time interval and lasts for a certain amount of time. An appointment can be recurrent, in other words, it repeats regularly over time (e.g., lunch, training, etc.). User can travel with someone else and can pick up or leave off these people during the day.
+
+User can have his own travel means and a pass for public transportation. 
+The travel means considered in this scenario can be grouped in three categories: public, shared or private.
+\begin{itemize}
+\item Public travel means: these include trains, buses, underground, taxis, trams. They have to be taken in their designated stops. User must have a valid ticket in order to get on a public travel means (except for taxis, that pick up the user wherever he wants upon a call and do not require any ticket);
+
+\item Shared travel means: these include cars and bikes. They are located in specific places.
+
+\item Private travel means: vehicles owned by the user. They can be cars, bikes. Also walking is considered to be a (very special) private travel mean.
+\end{itemize}
+
+Weather conditions can change during the day affecting travel means choice.
+At the beginning of the day, or on demand, user can request a schedule of his daily appointments, following some criteria evaluated according to their assigned priority and satisfying some constraints imposed by the user.
+When a new appointment is received, user creates a new item in the application and saves it in the appointment list. User can request the application to reschedule the appointments because of unexpected changes of his plan (e.g. a cancelled appointment).
+User can choose whether to take or not a shared travel mean when the application notify him of its availability.
+A daily schedule starts from an initial location that can be set or automatically retrieved by GPS and it's supposed to end in the place of the last appointment. 
+
+\subsection{World Phenomena}
+\begin{itemize}
+\item User receives a new appointment;
+\item User picks up a person;
+\item User owns private travel means and/or passes for public transportation;
+\item User wakes up;
+\item User pass expires;
+\item Exists various travel means.
+\end{itemize}
+
+\subsection{Shared Phenomena}
+\begin{itemize}
+\item Shared travel mean moves;
+\item Shared travel mean is not available anymore;
+\item Wheather condition changes;
+\item Public travel means reach a stop-place;
+\item Public travel means are late; 
+\item Public travel means are not available due to a strike day;
+\item User requests a schedule to the machine;
+\item User inserts a new appointment into the application;
+\item User requests to book rides;
+\item User moves.
+\end{itemize}
+
+\section{Definitions, Acronyms, Synonims}
+
+\subsection{Synonims}
+Are synonims:
+\begin{itemize}
+\item Appointment and meeting;
+\item System and Application.
+\end{itemize}
+
+\subsection{Definitions}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+ 
+\begin{definition} \label{def:preference}
+A preference is a constraint on appointment or a schedule;
+\end{definition}
+
+\begin{definition} \label{def:device}
+A device is a PC, a Tablet or a Smartphone in which run the last version of his O.S.;
+\end{definition}
+
+\begin{definition} \label{def:travelOption}
+A Travel Option is a combination of travel path and travel means that allow to reach one spot from another;
+\end{definition}
+
+\begin{definition} \label{def:travelOptionData}
+The Travel Option Data are additional information about a travel option:
+\begin{itemize}
+\item Cost;
+\item Traveling time;
+\item Carbon emission;
+\item Distance (KM);
+\item Graphical representation of the path.
+
+\end{itemize}
+\end{definition}
+
+\begin{definition} \label{def:schedule}
+A Schedule is a set of time-ordered and not overlapping appointments where their starting times are fixed and they're linked to each other by a path covered with a specific transportation mean;
+\end{definition}
+
+\begin{definition} \label{def:validSchedule}
+A Valid Schedule is a Schedule which:
+\begin{itemize}
+\item Is optimized according to the criteria chosen by the user;
+\item Ensures that the user will be on time for all his appointments;
+\item Respects the constraints imposed by the user;
+\end{itemize}
+\end{definition}
+
+\begin{definition} \label{def:travelServiceAccount}
+A travel service account is an external account of the user which permits the booking and the payment of a specific travel mean;
+\end{definition}
+
+\begin{definition} \label{def:relativePath}
+A Relative Path is a  portion of a path travelled by the same travel means;
+\end{definition}
+ 
+
+\begin{definition} \label{def:schedulingResult}
+A Scheduling Result is the set:
+\begin{itemize}
+\item Graphical representation of the path that will be travelled by the user
+\item Money spent for each relative path
+\item Total money spent 
+\item Length of the path expressed in KM
+\item Length of relative path 
+\item Carbon footprint emission
+\item Estimated travel duration of each relative path
+\item Total estimated travel time
+\end{itemize}
+\end{definition}
+
+\begin{definition} \label{def:currentAppointment}
+The Current Appointment is an appointment which has \textit{startingTime >= currentTime } and \textit{date=currentDate}, where \textit{currentTime} and  \textit{currentDate} are the actual time reference of the system.
+\end{definition}
+
+%convenzioni:
+%variables are italic
+%states are bold
+
+\subsection{Acronyms}
+Acronyms used in the text:
+\begin{itemize}
+\item GPS: Global Positioning System;
+\item GUI: Graphical User Interface;
+\item ETA: Estimated Time of Arrival;
+\item S.P.W.: Should Provide a Way;
+\item S.B.A.: Should Be Able;
+\item API: Application Programming Interface;
+\item CRUD: Create/Read/Update/Delete;
+\item URL: Uniform Resource Locator;
+\item O.S.: Operating System.
+\end{itemize}
+
+%\reqref{req:R1}
+%\goalref{goal:G1}
+
+\section{Revision history}
+\begin{itemize}
+\item Version 1.1: included synchronization details
+\end{itemize} 
+
+\section{Document structure}
+This document is structured as:
+\begin{enumerate}
+\item Introduction: it provides an overview of this entire document and product goals;
+\item Overall description: it describes general factors that affect the product providing the background for system requirements;
+\item Specific requirements: it contains all system's functional and nonfunctional requirements and the usage scenarios of the system with the use case diagram, use cases descriptions and other diagrams;
+\item Formal Analysis Using Alloy: it contains the Alloy model, software and tools used, hours of work per each team member;
+\item Effort Spent
+\item References
+\end{enumerate}
+
+
+ 
