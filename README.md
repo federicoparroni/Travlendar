@@ -14,27 +14,27 @@ Calendar, trip arranger and activities scheduler Android app
 
 Sign up and create you profile:
 <div align = "center">
-<img src="Travlendar/raw/master/Documentation/ITD/images/testClient/correctRegistration.png" width="300" />
+<img src="Documentation/ITD/images/testClient/correctRegistration.png" width="300" />
 </div>
 
 
 Insert your appointments:
 <div align = "center">
-<img src="Travlendar/raw/master/Documentation/ITD/images/testClient/appointment_details.png" width="300" />
+<img src="Documentation/ITD/images/testClient/appointment_details.png" width="300" />
 </div>
 
 
 Set your schedule preferences:
 <div align = "center">
-<img src="Travlendar/raw/master/Documentation/ITD/images/test_goal_6/timeSlotConstraint.png" width="300" />
+<img src="Documentation/ITD/images/test_goal_6/timeSlotConstraint.png" width="300" />
 <img src="Assets/gifs/alert-.gif" width="300" />
 </div>
 
 
 Get indications!
 <div align = "center">
-<img src="Travlendar/raw/master/Documentation/ITD/images/test_goal_6/schedule_time_slot.png" width="300" />
-<img src="Travlendar/raw/master/Documentation/ITD/images/test_goal_6/4.PNG" width="300" />
-<img src="Travlendar/raw/master/Documentation/ITD/images/testClient/directions.png" width="300" />
+<img src="Documentation/ITD/images/test_goal_6/schedule_time_slot.png" width="300" />
+<img src="Documentation/ITD/images/test_goal_6/4.PNG" width="300" />
+<img src="Documentation/ITD/images/testClient/directions.png" width="300" />
 </div>
 
